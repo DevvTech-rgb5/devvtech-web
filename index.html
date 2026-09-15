@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#05070a">
+<meta name="description" content="DevvTech — Desarrollo y tecnología para convertir ideas en experiencias digitales.">
+<title>DevvTech — Desarrollo & Tecnología</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#05070a; --bg2:#080b10; --panel:#0c1118; --white:#f4f7fb;
+  --muted:#8b96a5; --blue:#087cff; --blue2:#50b2ff; --line:rgba(255,255,255,.10);
+  --max:1440px; --radius:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden}
+a{text-decoration:none;color:inherit}button{font:inherit}
+::selection{background:var(--blue);color:#fff}
+
+/* CURSOR / PROGRESS */
+.cursor{position:fixed;z-index:9999;width:14px;height:14px;border:1px solid rgba(80,178,255,.9);border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s;display:none}
+.progress{position:fixed;z-index:300;top:0;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--blue2));box-shadow:0 0 18px var(--blue)}
+
+/* NAV */
+.nav{position:fixed;z-index:200;top:0;left:0;right:0;padding:24px clamp(20px,5vw,75px);display:flex;align-items:center;justify-content:space-between;transition:.5s}
+.nav.scrolled{padding-top:13px;padding-bottom:13px;background:rgba(5,7,10,.72);backdrop-filter:blur(22px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;font-family:"Space Grotesk";font-weight:800;letter-spacing:-.06em}
+.brand svg{width:43px;height:43px;flex:none}.brand-name{font-size:21px}.brand-name b{color:var(--blue)}
+.nav-links{display:flex;align-items:center;gap:30px;font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:#bac3cf}
+.nav-links a{position:relative;padding:10px 0}.nav-links a:after{content:"";position:absolute;left:0;bottom:2px;width:0;height:1px;background:var(--blue);transition:.35s}.nav-links a:hover:after{width:100%}
+.nav-facebook{border:1px solid var(--line);padding:11px 15px!important;transition:.3s}.nav-facebook:hover{border-color:var(--blue);background:rgba(8,124,255,.08)}
+.menu{display:none;border:1px solid var(--line);background:rgba(8,11,16,.7);color:#fff;width:44px;height:44px}
+
+/* GLOBAL */
+section{position:relative;padding:clamp(90px,11vw,170px) clamp(20px,7vw,110px);overflow:hidden}
+.wrap{max-width:var(--max);margin:auto}
+.kicker{font-size:10px;text-transform:uppercase;letter-spacing:.35em;color:var(--blue2);margin-bottom:20px}
+h2{font-family:"Space Grotesk";font-size:clamp(46px,6.5vw,94px);line-height:.91;letter-spacing:-.075em}
+.muted{color:var(--muted);line-height:1.85;font-size:15px}
+.reveal{opacity:0;transform:translateY(50px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.reveal.visible{opacity:1;transform:none}
+.d1{transition-delay:.12s}.d2{transition-delay:.22s}.d3{transition-delay:.32s}.d4{transition-delay:.42s}
+
+/* HERO */
+.hero{height:100svh;min-height:720px;display:grid;place-items:center;padding-top:110px;background:#05070a}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+.glow{position:absolute;width:70vw;height:70vw;max-width:1000px;max-height:1000px;left:50%;top:48%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(8,124,255,.20),rgba(8,124,255,.055) 22%,transparent 62%);filter:blur(8px);animation:breathe 7s ease-in-out infinite}
+.grid{position:absolute;inset:-20%;background-image:linear-gradient(rgba(255,255,255,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.032) 1px,transparent 1px);background-size:82px 82px;transform:perspective(700px) rotateX(62deg) translateY(25%);transform-origin:center bottom;opacity:.7}
+.orbit{position:absolute;width:min(78vw,1050px);aspect-ratio:1;border:1px solid rgba(8,124,255,.18);border-radius:50%;left:50%;top:48%;transform:translate(-50%,-50%);animation:spin 34s linear infinite}
+.orbit:before,.orbit:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.065);inset:8%;animation:spin 22s linear infinite reverse}
+.orbit:after{inset:24%;border-color:rgba(8,124,255,.16);animation-duration:14s}
+.orbit-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--blue2);top:-4px;left:50%;box-shadow:0 0 30px 5px rgba(8,124,255,.7)}
+.light-sweep{position:absolute;width:160%;height:1px;left:-30%;top:50%;background:linear-gradient(90deg,transparent,var(--blue),transparent);box-shadow:0 0 30px var(--blue);transform:rotate(-16deg);animation:sweep 6s ease-in-out infinite}
+.hero-content{position:relative;z-index:5;text-align:center;width:min(1050px,92vw)}
+.hero-logo{margin:0 auto 22px;width:74px;height:74px;filter:drop-shadow(0 0 28px rgba(8,124,255,.22))}
+.hero-small{font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:#75bdff;margin-bottom:25px}
+.hero h1{font-family:"Space Grotesk";font-size:clamp(74px,13vw,180px);font-weight:800;line-height:.75;letter-spacing:-.10em}
+.hero h1 span{display:block;color:transparent;-webkit-text-stroke:1px rgba(244,247,251,.46)}
+.hero-copy{max-width:650px;margin:38px auto;color:#98a3b1;line-height:1.8;font-size:16px}
+.ctas{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:16px;padding:15px 22px;border:1px solid var(--line);text-transform:uppercase;letter-spacing:.16em;font-size:10px;transition:.4s}
+.btn.primary{background:var(--blue);border-color:var(--blue);font-weight:800}
+.btn:hover{transform:translateY(-4px);box-shadow:0 18px 45px rgba(8,124,255,.2)}
+.scroll-note{position:absolute;bottom:25px;left:50%;z-index:5;transform:translateX(-50%);font-size:9px;letter-spacing:.35em;color:#66717e}
+.scroll-note:after{content:"";display:block;width:1px;height:45px;margin:12px auto;background:linear-gradient(var(--blue),transparent);animation:drop 1.8s infinite}
+
+/* INTRO */
+.intro{background:linear-gradient(180deg,#05070a,#070a0f)}
+.intro-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:10vw;align-items:end}
+.intro h2 strong{color:var(--blue)}
+.statement{font-family:"Space Grotesk";font-size:clamp(27px,3.5vw,52px);line-height:1.07;letter-spacing:-.055em}
+.statement b{color:var(--blue)}
+.intro .muted{max-width:580px;margin-top:27px}
+
+/* MARQUEE */
+.marquee{padding:18px 0;background:var(--blue);color:#fff;overflow:hidden;white-space:nowrap}
+.track{display:inline-flex;animation:marquee 24s linear infinite}
+.track span{font-family:"Space Grotesk";font-size:13px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;padding:0 28px}
+
+/* SERVICES */
+.services{background:#070a0e}
+.services-top{display:flex;justify-content:space-between;align-items:end;gap:50px}
+.services-top .muted{max-width:450px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);margin-top:75px;border-top:1px solid var(--line)}
+.card{position:relative;min-height:365px;padding:30px 25px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;transition:.6s}
+.card:last-child{border-right:0}
+.card:before{content:"";position:absolute;width:260px;height:260px;right:-130px;bottom:-130px;background:var(--blue);border-radius:50%;filter:blur(80px);opacity:0;transition:.6s}
+.card:hover{background:linear-gradient(145deg,#0b1119,#070a0e);transform:translateY(-8px)}
+.card:hover:before{opacity:.22}
+.card-num{font-size:10px;letter-spacing:.2em;color:#5f6975}
+.card-icon{margin-top:62px;width:48px;height:48px;color:var(--blue2);transition:.5s}
+.card:hover .card-icon{transform:translateY(-6px) scale(1.08)}
+.card h3{font-family:"Space Grotesk";font-size:23px;margin-top:24px}
+.card p{color:var(--muted);font-size:13px;line-height:1.75;margin-top:10px}
+
+/* INTERACTIVE SHOWCASE */
+.showcase{background:#05070a;min-height:900px;display:grid;place-items:center}
+.showcase-copy{position:absolute;z-index:5;left:7vw;top:13vw;max-width:360px}
+.showcase-copy h2{font-size:clamp(42px,5vw,70px)}
+.scene{width:min(1000px,86vw);height:min(610px,62vw);min-height:390px;position:relative;perspective:1200px}
+.scene-core{position:absolute;inset:9%;border:1px solid rgba(255,255,255,.12);background:radial-gradient(circle at 50% 50%,rgba(8,124,255,.14),transparent 34%),#090d13;transform:rotateX(5deg) rotateY(-4deg);box-shadow:0 55px 120px rgba(0,0,0,.75);overflow:hidden;transition:transform .15s ease}
+.scene-core:before{content:"";position:absolute;inset:-30%;background:conic-gradient(from 0deg,transparent,rgba(8,124,255,.18),transparent 23%,rgba(255,255,255,.04),transparent 52%);animation:spin 15s linear infinite}
+.hud{position:absolute;inset:8%;z-index:2;border:1px solid rgba(255,255,255,.10);padding:24px;display:flex;flex-direction:column;justify-content:space-between;background:rgba(4,6,9,.52);backdrop-filter:blur(9px)}
+.hud-top,.hud-bottom{display:flex;justify-content:space-between;font-size:9px;text-transform:uppercase;letter-spacing:.2em;color:#6f7a88}
+.hud-main{font-family:"Space Grotesk";font-size:clamp(42px,7vw,100px);line-height:.78;letter-spacing:-.09em;font-weight:700}
+.hud-main span{color:var(--blue)}
+.hud-line{position:absolute;height:1px;width:70%;left:15%;top:50%;background:linear-gradient(90deg,transparent,var(--blue),transparent);box-shadow:0 0 25px var(--blue);animation:scan 4s ease-in-out infinite}
+
+/* WHY */
+.why{background:#080b10}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:10vw}
+.points{margin-top:65px}
+.point{display:grid;grid-template-columns:55px 1fr;gap:20px;padding:25px 0;border-top:1px solid var(--line)}
+.point .num{font-size:10px;color:var(--blue)}
+.point h3{font-family:"Space Grotesk";font-size:22px;margin-bottom:7px}.point p{color:var(--muted);line-height:1.7;font-size:13px}
+.big-ring{width:min(35vw,500px);aspect-ratio:1;border-radius:50%;border:1px solid rgba(8,124,255,.22);display:grid;place-items:center;margin:auto;position:relative;animation:float 7s ease-in-out infinite}
+.big-ring:before{content:"";position:absolute;inset:13%;border:1px solid rgba(255,255,255,.10);border-radius:50%;animation:spin 20s linear infinite}
+.big-ring:after{content:"";position:absolute;inset:29%;border:1px solid rgba(8,124,255,.22);border-radius:50%}
+.big-ring strong{font-family:"Space Grotesk";font-size:clamp(45px,6vw,85px);letter-spacing:-.09em}.big-ring small{display:block;text-align:center;color:var(--blue2);font-size:8px;letter-spacing:.35em;margin-top:8px}
+
+/* PROCESS */
+.process{background:#05070a}
+.process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5vw;margin-top:80px}
+.step{border-top:1px solid var(--line);padding-top:25px}
+.step b{color:var(--blue2);font-size:10px;letter-spacing:.2em}.step h3{font-family:"Space Grotesk";font-size:29px;margin:18px 0 10px}.step p{font-size:13px;color:var(--muted);line-height:1.75}
+.step .arrow{font-size:30px;color:var(--blue);margin-top:35px}
+
+/* AUDIENCE */
+.audience{background:#080b10}
+.audience-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:70px}
+.audience-card{min-height:240px;border:1px solid var(--line);padding:30px;position:relative;overflow:hidden;transition:.45s}
+.audience-card:hover{border-color:rgba(8,124,255,.45);transform:translateY(-6px)}
+.audience-card span{font-size:9px;color:var(--blue2);letter-spacing:.2em;text-transform:uppercase}
+.audience-card h3{font-family:"Space Grotesk";font-size:28px;margin:55px 0 10px}.audience-card p{font-size:13px;color:var(--muted);line-height:1.7}
+
+/* CTA */
+.contact{min-height:85vh;display:grid;place-items:center;text-align:center;border-top:1px solid var(--line);background:radial-gradient(circle at 50% 40%,rgba(8,124,255,.11),transparent 35%),#05070a}
+.contact h2{font-size:clamp(62px,11vw,155px)}
+.contact h2 span{color:var(--blue)}
+.contact .muted{max-width:620px;margin:28px auto 32px}
+.contact .email{font-size:11px}
+
+/* FOOTER */
+footer{padding:32px 7vw calc(32px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;color:#626c79;font-size:9px;letter-spacing:.15em;text-transform:uppercase}
+.footer-social{color:#aeb7c2;transition:.3s}.footer-social:hover{color:var(--blue2)}
+
+/* MOBILE */
+@media (pointer:fine){.cursor{display:block}}
+@media(max-width:1050px){
+ .cards{grid-template-columns:1fr 1fr}.card:nth-child(2){border-right:0}.card:nth-child(3){border-right:1px solid var(--line)}
+ .intro-grid,.why-grid{grid-template-columns:1fr;gap:60px}
+ .big-ring{width:min(55vw,430px)}
+ .showcase-copy{position:relative;left:auto;top:auto;margin-bottom:45px;max-width:600px}
+ .showcase{display:block;padding-top:110px}
+ .scene{margin:auto}
+}
+@media(max-width:720px){
+ .nav{padding:17px 18px}.nav.scrolled{padding:10px 18px}.nav-links{display:none}.menu{display:block}
+ .hero{min-height:720px}.hero h1{font-size:22vw}.hero-logo{width:58px;height:58px}.hero-copy{font-size:14px;margin-top:28px}
+ section{padding:95px 20px}.services-top{display:block}.services-top .muted{margin-top:24px}
+ .cards{grid-template-columns:1fr;margin-top:50px}.card,.card:nth-child(2),.card:nth-child(3){border-right:0}.card{min-height:290px;padding:27px 20px}.card-icon{margin-top:45px}
+ .scene{width:100%;height:500px;min-height:0}.scene-core{inset:2%}.hud{inset:7%;padding:17px}.hud-main{font-size:14vw}
+ .big-ring{width:75vw}.process-grid{grid-template-columns:1fr;gap:45px;margin-top:55px}
+ .audience-grid{grid-template-columns:1fr;margin-top:50px}.audience-card{min-height:210px}.audience-card h3{margin-top:42px}
+ footer{flex-direction:column;padding-left:20px;padding-right:20px}
+}
+@media(max-width:390px){.brand-name{font-size:18px}.brand svg{width:37px;height:37px}.btn{width:100%}.hero{min-height:680px}}
+/* keyframes */
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes breathe{50%{transform:translate(-50%,-50%) scale(1.13);opacity:.72}}
+@keyframes sweep{0%,100%{transform:translateX(-12%) rotate(-16deg);opacity:.2}50%{transform:translateX(12%) rotate(-16deg);opacity:1}}
+@keyframes drop{50%{height:68px;opacity:.2}}
+@keyframes scan{0%,100%{transform:translateX(-20%);opacity:.15}50%{transform:translateX(20%);opacity:1}}
+@keyframes float{50%{transform:translateY(-13px)}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="cursor" id="cursor"></div>
+
+<header class="nav" id="nav">
+<a class="brand" href="#inicio" aria-label="DevvTech">
+<svg viewBox="0 0 100 100" fill="none">
+<path d="M11 16h43c20 0 34 14 34 34S74 84 54 84H11V16Z" stroke="#F4F7FB" stroke-width="9"/>
+<path d="M38 43l25 25" stroke="#087CFF" stroke-width="11"/>
+<path d="M60 16h29v12H72v44H60V16Z" fill="#087CFF"/>
+</svg>
+<div class="brand-name">DEVV<b>TECH</b></div>
+</a>
+<nav class="nav-links" id="navLinks">
+<a href="#servicios">Servicios</a>
+<a href="#nosotros">Nosotros</a>
+<a href="#proceso">Proceso</a>
+<a href="#contacto">Contacto</a>
+<a class="nav-facebook" href="#facebook">Facebook ↗</a>
+</nav>
+<button class="menu" id="menu" aria-label="Abrir menú">☰</button>
+</header>
+
+<main id="inicio">
+<section class="hero">
+<div class="hero-bg"><div class="glow"></div><div class="grid"></div><div class="orbit"><i class="orbit-dot"></i></div><div class="light-sweep"></div></div>
+<div class="hero-content reveal">
+<svg class="hero-logo" viewBox="0 0 100 100" fill="none">
+<path d="M11 16h43c20 0 34 14 34 34S74 84 54 84H11V16Z" stroke="#F4F7FB" stroke-width="9"/>
+<path d="M38 43l25 25" stroke="#087CFF" stroke-width="11"/>
+<path d="M60 16h29v12H72v44H60V16Z" fill="#087CFF"/>
+</svg>
+<div class="hero-small">Desarrollo & Tecnología</div>
+<h1>DEVV<span>TECH</span></h1>
+<p class="hero-copy">Creamos experiencias digitales, páginas web, sistemas y soluciones tecnológicas para transformar ideas en proyectos reales.</p>
+<div class="ctas"><a class="btn primary" href="#contacto">Cuéntanos tu idea →</a><a class="btn" href="#servicios">Descubrir DevvTech</a></div>
+</div>
+<div class="scroll-note">DESLIZA</div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track"><span>DESARROLLO WEB</span><span>DISEÑO DIGITAL</span><span>SISTEMAS</span><span>TECNOLOGÍA</span><span>DESARROLLO WEB</span><span>DISEÑO DIGITAL</span><span>SISTEMAS</span><span>TECNOLOGÍA</span></div></div>
+
+<section class="intro" id="nosotros">
+<div class="wrap intro-grid">
+<div class="reveal"><div class="kicker">01 / Quiénes somos</div><h2>Tu idea puede convertirse en algo <strong>real.</strong></h2></div>
+<div class="reveal d1"><p class="statement">En <b>DevvTech</b> no solo hacemos páginas. Construimos experiencias digitales pensadas para que tu proyecto avance.</p><p class="muted">Somos una propuesta tecnológica enfocada en negocios, estudiantes, emprendedores y personas que necesitan una solución digital clara, moderna y accesible.</p></div>
+</div>
+</section>
+
+<section class="services" id="servicios">
+<div class="wrap">
+<div class="services-top reveal"><div><div class="kicker">02 / Lo que hacemos</div><h2>Todo empieza<br>con una idea.</h2></div><p class="muted">Desde una presencia digital sencilla hasta una solución personalizada, diseñamos cada proyecto según lo que realmente necesitas.</p></div>
+<div class="cards">
+<article class="card reveal"><div class="card-num">01 / WEB</div><svg class="card-icon" viewBox="0 0 48 48" fill="none"><rect x="5" y="7" width="38" height="29" rx="2" stroke="currentColor" stroke-width="2"/><path d="M14 41h20M24 36v5M11 13h26M15 20l5 4-5 4M24 28h9" stroke="currentColor" stroke-width="2"/></svg><h3>Páginas web</h3><p>Sitios, landing pages, portafolios y páginas para negocios que quieren tener una presencia profesional.</p></article>
+<article class="card reveal d1"><div class="card-num">02 / DISEÑO</div><svg class="card-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="2"/><path d="M16 29c7 2 17-2 17-11M14 20l5-5M28 14l2 5M34 24l-5 2" stroke="currentColor" stroke-width="2"/></svg><h3>Diseño & identidad</h3><p>Logotipos, publicidad, contenido visual e identidad para que tu proyecto tenga una imagen reconocible.</p></article>
+<article class="card reveal d2"><div class="card-num">03 / SISTEMAS</div><svg class="card-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="7" stroke="currentColor" stroke-width="2"/><path d="M24 5v7M24 36v7M5 24h7M36 24h7M10.5 10.5l5 5M32.5 32.5l5 5M37.5 10.5l-5 5M15.5 32.5l-5 5" stroke="currentColor" stroke-width="2"/></svg><h3>Sistemas digitales</h3><p>Herramientas y soluciones digitales para organizar, automatizar y simplificar tareas.</p></article>
+<article class="card reveal d3"><div class="card-num">04 / PRESENCIA</div><svg class="card-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2"/><path d="M6 24h36M24 6c5 5 7 11 7 18s-2 13-7 18c-5-5-7-11-7-18s2-13 7-18Z" stroke="currentColor" stroke-width="2"/></svg><h3>Presencia digital</h3><p>Ayudamos a que clientes, alumnos y visitantes encuentren tu proyecto y entiendan lo que haces.</p></article>
+</div>
+</div>
+</section>
+
+<section class="showcase">
+<div class="wrap">
+<div class="showcase-copy reveal"><div class="kicker">03 / Experiencia</div><h2>Diseñamos para que se <span style="color:var(--blue)">sienta.</span></h2><p class="muted" style="margin-top:22px">Movimiento, profundidad, interacción y una interfaz adaptada a cada pantalla.</p></div>
+<div class="scene reveal d1" id="scene">
+<div class="scene-core" id="sceneCore">
+<div class="hud">
+<div class="hud-top"><span>DEVVTECH / EXPERIENCIA DIGITAL</span><span>01 — 04</span></div>
+<div class="hud-main">HAZ<br><span>ALGO</span><br>REAL.</div>
+<div class="hud-bottom"><span>Desarrollo & Tecnología</span><span>Explora ↓</span></div>
+<div class="hud-line"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="why">
+<div class="wrap why-grid">
+<div>
+<div class="reveal"><div class="kicker">04 / Nuestra forma</div><h2>Tecnología sin complicaciones.</h2><p class="muted" style="margin-top:24px">Queremos que el proceso sea tan claro como el resultado. Te escuchamos, te explicamos y construimos contigo.</p></div>
+<div class="points">
+<div class="point reveal"><div class="num">01</div><div><h3>Atención personalizada</h3><p>Cada proyecto comienza entendiendo qué necesitas y qué quieres conseguir.</p></div></div>
+<div class="point reveal d1"><div class="num">02</div><div><h3>Diseño con intención</h3><p>No llenamos una pantalla de elementos: cada parte tiene una función.</p></div></div>
+<div class="point reveal d2"><div class="num">03</div><div><h3>Soluciones a medida</h3><p>Adaptamos la propuesta al proyecto, al presupuesto y al tipo de usuario.</p></div></div>
+</div>
+</div>
+<div class="reveal d2"><div class="big-ring"><div><strong>DT</strong><small>DEVVTECH</small></div></div></div>
+</div>
+</section>
+
+<section class="process" id="proceso">
+<div class="wrap">
+<div class="reveal"><div class="kicker">05 / Cómo trabajamos</div><h2>De la idea<br>a lo real.</h2></div>
+<div class="process-grid">
+<div class="step reveal"><b>01 — ESCUCHAR</b><h3>Entendemos</h3><p>Nos cuentas tu idea, tu objetivo y lo que necesitas resolver. No importa si ya tienes todo definido o apenas estás comenzando.</p><div class="arrow">↓</div></div>
+<div class="step reveal d1"><b>02 — CREAR</b><h3>Diseñamos</h3><p>Planeamos la experiencia, la identidad visual y la solución tecnológica para que todo tenga sentido.</p><div class="arrow">↓</div></div>
+<div class="step reveal d2"><b>03 — LANZAR</b><h3>Impulsamos</h3><p>Desarrollamos, probamos y ajustamos el proyecto hasta dejarlo preparado para que puedas utilizarlo.</p><div class="arrow">→</div></div>
+</div>
+</div>
+</section>
+
+<section class="audience">
+<div class="wrap">
+<div class="reveal"><div class="kicker">06 / Para quién</div><h2>Hay un lugar<br>para tu proyecto.</h2></div>
+<div class="audience-grid">
+<article class="audience-card reveal"><span>Negocios</span><h3>Mini tiendas, papelerías y comercios</h3><p>Presencia digital, catálogos, publicidad y herramientas para mostrar lo que vendes.</p></article>
+<article class="audience-card reveal d1"><span>Servicios</span><h3>Estéticas, uñas y emprendimientos</h3><p>Una imagen profesional para presentar tus servicios, horarios, contacto y promociones.</p></article>
+<article class="audience-card reveal d2"><span>Estudiantes</span><h3>Proyectos y portafolios</h3><p>Presentaciones, diseño, páginas para proyectos y soluciones digitales.</p></article>
+<article class="audience-card reveal d3"><span>Emprendedores</span><h3>Ideas que quieren comenzar</h3><p>Te ayudamos a convertir una idea en una presencia digital con la que puedas empezar.</p></article>
+</div>
+</div>
+</section>
+
+<section class="contact" id="contacto">
+<div class="wrap reveal">
+<div class="kicker">07 / Hablemos</div>
+<h2>Hagamos algo<br><span>real.</span></h2>
+<p class="muted">Cuéntanos qué quieres crear. Te escuchamos y preparamos una cotización personalizada para tu proyecto.</p>
+<a class="btn primary email" href="mailto:binarysystebm@gmail.co?subject=Quiero%20un%20proyecto%20con%20DevvTech">binarysystebm@gmail.co&nbsp; →</a>
+</div>
+</section>
+
+<!-- FACEBOOK: reemplaza el enlace #facebook por la URL real de tu página -->
+<section id="facebook" style="padding-top:85px;padding-bottom:85px;background:#070a0e;border-top:1px solid var(--line)">
+<div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:35px">
+<div class="reveal"><div class="kicker">08 / Comunidad</div><h2 style="font-size:clamp(38px,5vw,65px)">Sigamos en Facebook.</h2><p class="muted" style="margin-top:18px">Publicaremos novedades, proyectos, servicios, promociones y contenido de DevvTech.</p></div>
+<a class="btn reveal d1" href="#" id="facebookButton">Ir a Facebook ↗</a>
+</div>
+</section>
+</main>
+
+<footer>
+<span>© 2026 DEVVTECH</span>
+<span>Desarrollo & Tecnología</span>
+<a class="footer-social" href="#facebook">Facebook ↗</a>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+const progress=document.getElementById('progress');
+addEventListener('scroll',()=>{
+ nav.classList.toggle('scrolled',scrollY>40);
+ const max=document.documentElement.scrollHeight-innerHeight;
+ progress.style.width=(max>0?(scrollY/max)*100:0)+'%';
+},{passive:true});
+
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.10});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+const cursor=document.getElementById('cursor');
+if(cursor && matchMedia('(pointer:fine)').matches){
+ addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'});
+ document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.width='32px';cursor.style.height='32px';cursor.style.background='rgba(8,124,255,.08)'});
+  el.addEventListener('mouseleave',()=>{cursor.style.width='14px';cursor.style.height='14px';cursor.style.background='transparent'});
+ });
+}
+
+const menu=document.getElementById('menu'), links=document.getElementById('navLinks');
+menu.addEventListener('click',()=>{
+ const open=links.classList.toggle('open');
+ links.style.display=open?'flex':'none';
+ if(open){links.style.position='absolute';links.style.top='64px';links.style.right='18px';links.style.flexDirection='column';links.style.alignItems='stretch';links.style.gap='4px';links.style.padding='14px 18px';links.style.background='rgba(7,10,14,.97)';links.style.border='1px solid rgba(255,255,255,.12)'}
+});
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(innerWidth<=720){links.classList.remove('open');links.style.display='none'}}));
+
+const scene=document.getElementById('scene'), core=document.getElementById('sceneCore');
+if(scene && matchMedia('(pointer:fine)').matches){
+ scene.addEventListener('mousemove',e=>{
+  const r=scene.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+  core.style.transform=`rotateX(${5-y*8}deg) rotateY(${-4+x*10}deg)`;
+ });
+ scene.addEventListener('mouseleave',()=>core.style.transform='rotateX(5deg) rotateY(-4deg)');
+}
+
+// Pega aquí la URL real de tu página de Facebook:
+const FACEBOOK_URL = "#";
+document.getElementById('facebookButton').href=FACEBOOK_URL;
+</script>
+</body>
+</html>
